@@ -1,6 +1,6 @@
 # Nanobox
 
-Extremely lightweight "lightbox". Zero-dependencies. Only 1.4 KB. And that's *without* minification and gzip.
+Extremely lightweight "lightbox". Zero-dependencies. Only 1.4 KB. And that's *without* minification and gzip. No, really 1483 bytes of readable code.
 
 ## Usage
 
