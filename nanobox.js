@@ -1,7 +1,7 @@
 //nanobox - lightest possible lightbox (c) jitbit, Alex Yumashev
 
 const Nanobox = new (function () {
-	const imgRx = /\.(jpg|gif|png|webp|jpeg)$/i;
+	const imgRx = /\.(jpg|gif|png|webp|jpeg|avif)$/i;
 	const div = document.createElement('div');
 	div.innerHTML = `<div style='position:fixed;display:none;background:#111111bb;width:100%;height:100%;top:0;left:0;z-index:10000;backdrop-filter:blur(10px)'>
 		<a href="javascript:;" style='position:fixed;right:10px;top:10px;font-size:3em;color:#fff;text-decoration:none'>×</a>
