@@ -1,6 +1,8 @@
 # Nanobox
 
-Extremely lightweight "lightbox". Zero-dependencies. Only 1.4 KB. And that's *without* minification and gzip. No, really 1483 bytes of readable code.
+Extremely lightweight and fast "lightbox". Zero-dependencies. Only 1.4 KB. And that's *without* minification and gzip.
+
+No, really, just 1483 bytes of readable code.
 
 ## Usage
 
@@ -18,7 +20,7 @@ Extremely lightweight "lightbox". Zero-dependencies. Only 1.4 KB. And that's *wi
 
 If the link points to an image - clicking the link will show an image modal.
 
-If not - if will show an iframe pointing to the link (so you can use it with Yoututbe videos for example)
+If not - if will show an iframe pointing to the link (so you can use it with Yoututbe videos etc)
 
 ## Demo
 
