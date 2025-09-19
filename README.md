@@ -24,4 +24,4 @@ If not - if will show an iframe pointing to the link (so you can use it with You
 
 ## Demo
 
-https://codepen.io/jitbit/pen/MWBaNPq
+https://jitbit.github.io/nanobox/
