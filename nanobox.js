@@ -3,14 +3,32 @@
 const Nanobox = new (function () {
 	const imgRx = /\.(jpg|gif|png|webp|jpeg|avif)$/i;
 	const div = document.createElement('div');
-	div.innerHTML = `<div style='position:fixed;display:none;background:#111111bb;width:100%;height:100%;top:0;left:0;z-index:10000;backdrop-filter:blur(10px)'>
-		<a href="javascript:;" style='position:fixed;right:10px;top:10px;font-size:3em;color:#fff;text-decoration:none'>×</a>
-		<img style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);max-height:80%;border-radius:8px' />
-		<iframe style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;height:80%;border-radius:8px;border:none'></iframe>
+	div.innerHTML = `<div style='display:none;' class="nanobox-overlay">
+		<a href="javascript:;">×</a>
+		<img />
+		<iframe></iframe>
 	</div>`;
 	const overlay = div.firstElementChild;
 	const img = overlay.firstElementChild.nextElementSibling;
 	const ifr = img.nextElementSibling;
+
+	const style = document.createElement('style');
+	style.textContent = `
+		.nanobox-overlay { position:fixed;background:#111111bb;width:100%;height:100%;inset:0;z-index:10000;backdrop-filter:blur(10px);
+			a { position:fixed;right:10px;top:10px;font-size:3em;color:#fff;text-decoration:none; }
+			img, iframe { position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:8px;border:none; }
+			iframe { width:80%;height:80%; }
+			img { max-width:80%;max-height:80%; }
+		}
+
+		@media (max-width: 768px) {
+			.nanobox-overlay {
+				img { max-width: 95vw !important; }
+				iframe { width: 95vw !important; }
+			}
+		}
+	`;
+	document.head.appendChild(style);
 
 	document.body.appendChild(overlay);
 
