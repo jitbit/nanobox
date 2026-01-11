@@ -16,10 +16,10 @@ const Nanobox = {
 		document.head.insertAdjacentHTML('beforeend', `<style>
 			.nanobox { position:fixed; inset:0; background:#111111bb; z-index:10000; backdrop-filter:blur(10px); }
 			.nanobox a { position:fixed; right:15px; top:10px; font-size:3em; color:#fff; text-decoration:none; }
-			.nanobox :is(img,iframe) { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:8px; border:0; }
+			.nanobox img, .nanobox iframe { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:8px; border:0; }
 			.nanobox img { max-width:80%; max-height:80%; }
 			.nanobox iframe { width:80%; height:80%; }
-			@media(max-width:800px) { .nanobox :is(img,iframe) { width:95vw; height:95vw; max-width:95vw; max-height:95vw; } }
+			@media(max-width:800px) { .nanobox img, .nanobox iframe { width:95vw; height:95vw; max-width:95vw; max-height:95vw; } }
 		</style>`);
 
 		this.overlay = document.createElement('div');
