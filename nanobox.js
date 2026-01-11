@@ -1,57 +1,36 @@
 //nanobox - lightest possible lightbox (c) jitbit, Alex Yumashev
+const Nanobox = {
+	attach(selector) {
+		document.querySelectorAll(selector).forEach(link => link.addEventListener('click', (e) => {
+			e.preventDefault();
+			if (!this.overlay) this.init();
+			const isImg = /\.(jpg|gif|png|webp|jpeg|avif)$/i.test(link.href);
+			const el = isImg ? this.img : this.ifr;
+			this.img.style.display = this.ifr.style.display = 'none';
+			el.style.display = 'block';
+			el.src = link.href;
+			this.overlay.style.display = 'block';
+		}));
+	},
+	init() {
+		document.head.insertAdjacentHTML('beforeend', `<style>
+			.nanobox { position:fixed; inset:0; background:#111111bb; z-index:10000; backdrop-filter:blur(10px); }
+			.nanobox a { position:fixed; right:15px; top:10px; font-size:3em; color:#fff; text-decoration:none; }
+			.nanobox :is(img,iframe) { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:8px; border:0; }
+			.nanobox img { max-width:80%; max-height:80%; }
+			.nanobox iframe { width:80%; height:80%; }
+			@media(max-width:800px) { .nanobox :is(img,iframe) { width:95vw; height:95vw; max-width:95vw; max-height:95vw; } }
+		</style>`);
 
-const Nanobox = new (function () {
-	const imgRx = /\.(jpg|gif|png|webp|jpeg|avif)$/i;
-	const div = document.createElement('div');
-	div.innerHTML = `<div style='display:none;' class="nanobox-overlay">
-		<a href="javascript:;">×</a>
-		<img />
-		<iframe></iframe>
-	</div>`;
-	const overlay = div.firstElementChild;
-	const img = overlay.firstElementChild.nextElementSibling;
-	const ifr = img.nextElementSibling;
+		this.overlay = document.createElement('div');
+		this.overlay.className = 'nanobox';
+		this.overlay.innerHTML = '<a href="javascript:;">×</a><img><iframe></iframe>';
+		document.body.append(this.overlay);
 
-	const style = document.createElement('style');
-	style.textContent = `
-		.nanobox-overlay { position:fixed;background:#111111bb;width:100%;height:100%;inset:0;z-index:10000;backdrop-filter:blur(10px);
-			a { position:fixed;right:10px;top:10px;font-size:3em;color:#fff;text-decoration:none; }
-			img, iframe { position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:8px;border:none; }
-			iframe { width:80%;height:80%; }
-			img { max-width:80%;max-height:80%; }
-		}
-
-		@media (max-width: 768px) {
-			.nanobox-overlay {
-				img { max-width: 95vw !important; }
-				iframe { width: 95vw !important; }
-			}
-		}
-	`;
-	document.head.appendChild(style);
-
-	document.body.appendChild(overlay);
-
-	function closeOverlay() {
-		overlay.style.display = 'none';
-		ifr.src = 'about:blank'; //stop YT
-	};
-	overlay.addEventListener('click', closeOverlay);
-	document.addEventListener('keydown', (e) => {
-		if (e.key === 'Escape') closeOverlay();
-	});
-
-	this.attach = (selector) => {
-		document.querySelectorAll(selector).forEach(link => {
-			let el = imgRx.test(link.href) ? img : ifr;
-
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				img.style.display = ifr.style.display = 'none';
-				el.style.display = '';
-				el.src = link.href;
-				overlay.style.display = '';
-			});
-		});
+		[this.img, this.ifr] = this.overlay.querySelectorAll('img,iframe');
+		
+		const close = () => { this.overlay.style.display = 'none'; this.ifr.src = 'about:blank'; };
+		this.overlay.addEventListener('click', close);
+		document.addEventListener('keydown', (e) => e.key === 'Escape' && close());
 	}
-});
+};
