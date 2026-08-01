@@ -19,7 +19,10 @@ const Nanobox = {
 			.nanobox img, .nanobox iframe { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:8px; border:0; }
 			.nanobox img { max-width:80%; max-height:80%; }
 			.nanobox iframe { width:80%; height:80%; }
-			@media(max-width:800px) { .nanobox img, .nanobox iframe { width:95vw; height:95vw; max-width:95vw; max-height:95vw; } }
+			@media(max-width:800px) {
+				.nanobox img { max-width:95vw; max-height:95vh; }
+				.nanobox iframe { width:95vw; height:95vh; }
+			}
 		</style>`);
 
 		this.overlay = document.createElement('div');
